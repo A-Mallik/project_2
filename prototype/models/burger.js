@@ -1,11 +1,3 @@
-// module.exports = function(sequelize, DataTypes) {
-//   var Example = sequelize.define("Example", {
-//     text: DataTypes.STRING,
-//     description: DataTypes.TEXT
-//   });
-//   return Example;
-// };
-
 // Burger models
 
 // The burger has a burger_name attribute of type DataTypes.String

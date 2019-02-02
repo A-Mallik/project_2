@@ -1,0 +1,105 @@
+
+	<div class="container-fluid">
+      
+      <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+        <a class="navbar-brand text-warning nav-Text" href="#">UNTANGLED</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="page2.html"><i class="fas fa-home"></i><span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning nav-Text whatOnYOurMind" href="page2.html">What's on Your Mind</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning nav-Text" href="#">Around Town</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-warning nav-Text" href="#" tabindex="-1" aria-disabled="true">Needs Fixing</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <a href="page2.html">Link to page 2</a>
+
+		
+  </br>
+</br>
+    <button type="button" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-secondary">Create Post</button>
+    <script src ="nav.js"></script>
+  
+	<div class="container">
+	<div class="row">
+		<div class= "col-lg-10">
+			<div class="col-sm-12 text-center" id="top-bar">
+
+			<img class='logo_image' src="/assets/images/web.png" alt="untangle logo" />
+			<h1> Eat-Da-Burger! </h1>
+		</div>
+		</div>
+		<div class="col-lg-2 text-center enter_section">
+			<form action="/burgers/create" method="POST">
+				<p>Enter a question you want to ask and click the "Submit" button.</p>
+				<button type="submit" class="btn btn-primary" id="text-enter-button">Submit</button>
+				<input type="text" class="form-control" name="burger_name" value="" id="enter_text">
+				</form>
+		
+		</div>
+	</div>
+</div>
+	<div class="row">
+		
+		
+		<div class="col-sm-6 text-center" class="task">
+			<div class="row">
+			  {{#each burger}}
+			  	{{#unless this.devoured}}
+				<div class="col-sm-9 text-center">
+					<pre>{{this.id}}. {{this.burger_name}}
+					</pre>
+				  		<!-- {{this.Date}} -->
+				</div>
+				<div class="col-sm-3 text-center">
+					<form class="button-size devour-form">
+						<input input type="hidden" type="text" class="burger_id" value={{this.id}}>
+						<!-- Solution 2 Edit: Added input for a customer name -->
+						<input class="custom-input" input type="text" placeholder="Name?">
+						<!-- end edit -->
+						<button type="submit" class="btn btn-default mt-1">Devour it!</button>
+					</form>
+				</div>
+				{{/unless}}
+			  {{/each}}
+			</div>
+		</div>
+		<div class="col-sm-6 text-center" class="task">
+			  {{#each burger}}
+			  	{{#if this.devoured}}
+				<!--
+					Solution 2 Edit: If a customer name gets sent with a burger
+					list the customers name
+					-->
+
+			  		{{#if this.Customer.customer}}
+			  			<input class="form-control" type="text" placeholder="{{this.id}} . {{this.burger_name}}  (Eaten by {{this.Customer.customer}})" readonly>
+					<!--
+					Solution 2 Edit: If there is no customer name,
+					just list the burger.
+						-->
+			  		{{else}}
+			  			<input class="form-control" type="text" placeholder="{{this.id}} . {{this.burger_name}}" readonly>
+			  		{{/if}}
+				{{/if}}
+			  {{/each}}
+		</div>
+	</div>
+</div>
+
+
+
+

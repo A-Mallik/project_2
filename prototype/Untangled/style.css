@@ -1,0 +1,11 @@
+.nav-Text {
+    font-size: 20px;
+    color: red !important;
+}
+.navbar-brand{
+    font-size: 40px;
+}
+
+a.text-warning:hover {
+    color: black !important;
+}
