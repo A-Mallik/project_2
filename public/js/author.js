@@ -1,24 +1,16 @@
 $(document).ready(function() {
-  // Getting references to the name input and author container, as well as the table body
   var nameInput = $("#author-name");
   var authorList = $("tbody");
   var authorContainer = $(".author-container");
-  // Adding event listeners to the form to create a new object, and the button to delete
-  // an Author
   $(document).on("submit", "#author-form", handleAuthorFormSubmit);
   $(document).on("click", ".delete-author", handleDeleteButtonPress);
-
   // Getting the initial list of Authors
   getAuthors();
-
-  // A function to handle what happens when the form is submitted to create a new Author
   function handleAuthorFormSubmit(event) {
     event.preventDefault();
-    // Don't do anything if the name fields hasn't been filled out
     if (!nameInput.val().trim().trim()) {
       return;
     }
-    // Calling the upsertAuthor function and passing in the value of the name input
     upsertAuthor({
       name: nameInput
         .val()
@@ -26,13 +18,11 @@ $(document).ready(function() {
     });
   }
 
-  // A function for creating an author. Calls getAuthors upon completion
   function upsertAuthor(authorData) {
     $.post("/api/authors", authorData)
       .then(getAuthors);
   }
 
-  // Function for creating a new list row for authors
   function createAuthorRow(authorData) {
     var newTr = $("<tr>");
     newTr.data("author", authorData);
@@ -60,7 +50,7 @@ $(document).ready(function() {
     });
   }
 
-  // A function for rendering the list of authors to the page
+
   function renderAuthorList(rows) {
     authorList.children().not(":last").remove();
     authorContainer.children(".alert").remove();
@@ -73,7 +63,6 @@ $(document).ready(function() {
     }
   }
 
-  // Function for handling what to render when there are no authors
   function renderEmpty() {
     var alertDiv = $("<div>");
     alertDiv.addClass("alert alert-danger");
@@ -81,7 +70,6 @@ $(document).ready(function() {
     authorContainer.append(alertDiv);
   }
 
-  // Function for handling what happens when the delete button is pressed
   function handleDeleteButtonPress() {
     var listItemData = $(this).parent("td").parent("tr").data("author");
     var id = listItemData.id;

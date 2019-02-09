@@ -4,17 +4,14 @@ $(document).ready(function() {
   var titleInput = $("#title");
   var cmsForm = $("#cms");
   var authorSelect = $("#author");
-  // Adding an event listener for when the form is submitted
+
   $(cmsForm).on("submit", handleFormSubmit);
   // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
   var url = window.location.search;
   var postId;
   var authorId;
-  // Sets a flag for whether or not we're updating a post to be false initially
   var updating = false;
 
-  // If we have this section in our url, we pull out the post id from the url
-  // In '?post_id=1', postId is 1
   if (url.indexOf("?post_id=") !== -1) {
     postId = url.split("=")[1];
     getPostData(postId, "post");
@@ -63,7 +60,7 @@ $(document).ready(function() {
     });
   }
 
-  // Gets post data for the current post if we're editing, or if we're adding to an author's existing posts
+  // Gets post data for the current post to do additional actions
   function getPostData(id, type) {
     var queryUrl;
     switch (type) {
@@ -79,23 +76,17 @@ $(document).ready(function() {
     $.get(queryUrl, function(data) {
       if (data) {
         console.log(data.AuthorId || data.id);
-        // If this post exists, prefill our cms forms with its data
         titleInput.val(data.title);
         bodyInput.val(data.body);
         authorId = data.AuthorId || data.id;
-        // If we have a post with this id, set a flag for us to know to update the post
-        // when we hit submit
         updating = true;
       }
     });
   }
 
-  // A function to get Authors and then render our list of Authors
   function getAuthors() {
     $.get("/api/authors", renderAuthorList);
   }
-  // Function to either render a list of authors, or if there are none, direct the user to the page
-  // to create an author first
   function renderAuthorList(data) {
     if (!data.length) {
       window.location.href = "/author-manager-html";
@@ -111,16 +102,13 @@ $(document).ready(function() {
     authorSelect.append(rowsToAdd);
     authorSelect.val(authorId);
   }
-
-  // Creates the author options in the dropdown
   function createAuthorRow(author) {
     var listOption = $("<option>");
     listOption.attr("value", author.id);
     listOption.text(author.name);
     return listOption;
   }
-
-  // Update a given post, bring user to the blog page when done
+ //update function - grabbed from template
   function updatePost(post) {
     $.ajax({
       method: "PUT",

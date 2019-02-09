@@ -1,18 +1,15 @@
 $(document).ready(function() {
-  /* global moment */
 
-  // blogContainer holds all of our posts
+
   var blogContainer = $(".blog-container");
   var postCategorySelect = $("#category");
-  // Click events for the edit and delete buttons
+
   $(document).on("click", "button.delete", handlePostDelete);
   $(document).on("click", "button.edit", handlePostEdit);
-  $(document).on("click", "button.reply", handleReply);
-  // Variable to hold our posts
+  $(document).on("click", "button.reply", handleReply);      // button added for the responses.
+
   var posts;
 
-  // The code below handles the case where we want to get blog posts for a specific author
-  // Looks for a query param in the url for author_id
   var url = window.location.search;
   var authorId;
   if (url.indexOf("?author_id=") !== -1) {
@@ -23,7 +20,6 @@ $(document).ready(function() {
   else {
     getPosts();
   }
-
 
   // This function grabs posts from the database and updates the view
   function getPosts(author) {
@@ -65,7 +61,7 @@ $(document).ready(function() {
     });
   }
   // -------------------------------------
-  //   $.get("/api/reply" , function(data) {
+  //   $.get("/api/reply" , function(data) {                                      // left here for testing purposes, to make sure we got the right responses back by checking through console.logs.
   // // console.log("Data: " + JSON.stringify(data[0].Replies));
   //           for(var i = 0; i <data.length; i++){
   //           // console.log("Data: " + JSON.stringify(data[i].Replies[0].body));
@@ -81,19 +77,13 @@ $(document).ready(function() {
     var responses = [];
 
     for (var i = 0; i < posts.length; i++) {
-
-
-
       postsToAdd.push(createNewRow(posts[i]),replyData);
       console.log("Looking at posts: " + JSON.stringify(posts[i].id));
-
-
   }
       // });
     blogContainer.append(postsToAdd);
   }
   // -------------------------------------.
-
 
   // This function does an API call to delete posts
   function deletePost(id) {
@@ -106,8 +96,6 @@ $(document).ready(function() {
       });
   }
 
-
-
   // This function constructs a post's HTML
   function createNewRow(post) {
     var arrayOfResponse = [];
@@ -117,12 +105,8 @@ $(document).ready(function() {
     counter = replyData[i].Replies
         for(var j = 0; j <counter.length; j++){
 
-          // if((replyData[i].Replies[j]) && (post.id === JSON.stringify(replyData[i].Replies[j].PostId)) && (post.Author.name === replyData[i].Author.name)){
-
-
+          // This is our main functionality for looping through the data of both posts and responses to make sure that we correctly grab the responses related to the post.
              if((replyData[i].Replies[j]) && (post.id == JSON.stringify(replyData[i].Replies[j].PostId)) && post.Author.name === replyData[i].Author.name){
-                // console.log("Post ID:  " + JSON.stringify(replyData[i].Replies[j].PostId));
-
                 console.log("Response Body: " + JSON.stringify(replyData[i].Replies[j].body));
                 arrayOfResponse.push(replyData[i].Replies[j].body);
                 // console.log("Author Name: " + replyData[i].Author.name); - consoles to check that everything was working just fine
@@ -170,23 +154,14 @@ $(document).ready(function() {
     var replyBody = $("<div> <h5>Responses: </br>");
         replyBody.addClass("replyBodyClass");
     // ------------------------------------------
-    // for(var j = 0; j <replyData.length; j++){
-    //    //   if(posts[i].id === data[j].Replies[0].PostId){
-    //    //   console.log("Is this working: " + posts[i].id + ": " + data[j].Replies[0].body);
-    //    //
-    //    // }
-    //      replyBody.append("Response: " + replyData[j].Replies[0].body);
-    // // console.log("Data: " + JSON.stringify(data[i].Replies[0].body));
-    // // console.log("Data: " + JSON.stringify(data[j].Replies[0].PostId));
-    // //   console.log("Data: " + JSON.stringify(data[i].Replies[0]));
-    // }
 
-    for(var i = 0; i < arrayOfResponse.length; i++){
+
+    for(var i = 0; i < arrayOfResponse.length; i++){                            // for loop to go through the responses array and post to the appropriate card.
        var test = "<div class='responseBox'>" + arrayOfResponse[i] + "</div>";
       replyBody.append(test)
 
     }
-    // replyBody.append(arrayOfResponse);
+    // creating the post card - from the original blog template
     newPostTitle.text(post.title + " ");
     newPostBody.text(post.body);
 
@@ -250,10 +225,10 @@ function handleReply() {
       partial = " for Author #" + id;
     }
     blogContainer.empty();
-    var messageH2 = $("<h2>");
+    var messageH2 = $("<h2 style='color:white;'>");
     messageH2.css({ "text-align": "center", "margin-top": "50px" });
-    messageH2.html("No posts yet" + partial + ", navigate <a href='/cms-html" + query +
-    "'>here</a> in order to get started.");
+    messageH2.html("No posts yet" + "<br>" + "Click <a href='/cms-html" + query +
+    "'>here</a>  to create one.");
     blogContainer.append(messageH2);
   }
 
