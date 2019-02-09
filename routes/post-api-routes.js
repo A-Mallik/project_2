@@ -18,6 +18,7 @@ module.exports = function(app) {
     if (req.query.author_id) {
       query.AuthorId = req.query.author_id;
     }
+    console.log("Query: " + req.query);
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
@@ -46,6 +47,7 @@ module.exports = function(app) {
 
   // POST route for saving a new post
   app.post("/api/posts", function(req, res) {
+    console.log("Req.body: " + req.body.Query);
     db.Post.create(req.body).then(function(dbPost) {
       res.json(dbPost);
     });

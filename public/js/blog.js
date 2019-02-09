@@ -33,16 +33,67 @@ $(document).ready(function() {
       authorId = "/?author_id=" + authorId;
     }
     $.get("/api/posts" + authorId, function(data) {
+      // --------------
+          $.get("/api/reply" , function(data2) {
+      // --------------
       console.log("Posts", data);
       posts = data;
+      replyData = data2;
+
+      // for loop getting responses properly --------------------
+      for(var i = 0; i <replyData.length; i++){
+      // console.log("Data: " + JSON.stringify(replyData[i].Replies[0].body));
+          for(var j = 0; j <replyData.length + 1; j++){
+
+            // if((replyData[i].Replies[j])){
+              console.log("Post ID:  " + JSON.stringify(replyData[i].Replies[j]));
+              // console.log("Response Body: " + JSON.stringify(replyData[i].Replies[j].body));
+                  console.log('==============================');
+            // }
+              // console.log("POST ID: " + JSON.stringify(replyData[i].Replies[0].PostId));
+          }
+      }
+      // ---------------//end of for loop getting all responses properly
       if (!posts || !posts.length) {
         displayEmpty(author);
       }
       else {
-        initializeRows();
+        initializeRows(replyData);
       }
+
+        });
     });
   }
+  // -------------------------------------
+  //   $.get("/api/reply" , function(data) {
+  // // console.log("Data: " + JSON.stringify(data[0].Replies));
+  //           for(var i = 0; i <data.length; i++){
+  //           // console.log("Data: " + JSON.stringify(data[i].Replies[0].body));
+  //           console.log("Data: " + JSON.stringify(data[i].Replies[0].PostId));
+  //           }
+  //       });
+  // -------------------------------------.
+  // InitializeRows handles appending all of our constructed post HTML inside blogContainer
+  function initializeRows(replyData) {
+
+    blogContainer.empty();
+    var postsToAdd = [];
+    var responses = [];
+
+    for (var i = 0; i < posts.length; i++) {
+
+
+
+      postsToAdd.push(createNewRow(posts[i]),replyData);
+      console.log("Looking at posts: " + JSON.stringify(posts[i].id));
+
+
+  }
+      // });
+    blogContainer.append(postsToAdd);
+  }
+  // -------------------------------------.
+
 
   // This function does an API call to delete posts
   function deletePost(id) {
@@ -55,62 +106,105 @@ $(document).ready(function() {
       });
   }
 
-  // InitializeRows handles appending all of our constructed post HTML inside blogContainer
-  function initializeRows() {
-    blogContainer.empty();
-    var postsToAdd = [];
-    for (var i = 0; i < posts.length; i++) {
-      postsToAdd.push(createNewRow(posts[i]));
-    }
-    blogContainer.append(postsToAdd);
-  }
+
 
   // This function constructs a post's HTML
   function createNewRow(post) {
-    var formattedDate = new Date(post.createdAt);
-    formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
-    var newPostCard = $("<div>");
-    newPostCard.addClass("card");
-    var newPostCardHeading = $("<div>");
-    newPostCardHeading.addClass("card-header");
-    var deleteBtn = $("<button>");
-    deleteBtn.text("x");
-    deleteBtn.addClass("delete btn btn-danger");
-    var editBtn = $("<button>");
-    editBtn.text("EDITs");
-    editBtn.addClass("edit btn btn-info");
+    var arrayOfResponse = [];
+    // =======================================
+    // // for loop getting responses properly --------------------
+    for(var i = 0; i <replyData.length; i++){
+    counter = replyData[i].Replies
+        for(var j = 0; j <counter.length; j++){
 
-    var newPostTitle = $("<h2>");
-    var newPostDate = $("<small>");
-    var newPostAuthor = $("<h5>");
+          // if((replyData[i].Replies[j]) && (post.id === JSON.stringify(replyData[i].Replies[j].PostId)) && (post.Author.name === replyData[i].Author.name)){
+
+
+             if((replyData[i].Replies[j]) && (post.id == JSON.stringify(replyData[i].Replies[j].PostId)) && post.Author.name === replyData[i].Author.name){
+                // console.log("Post ID:  " + JSON.stringify(replyData[i].Replies[j].PostId));
+
+                console.log("Response Body: " + JSON.stringify(replyData[i].Replies[j].body));
+                arrayOfResponse.push(replyData[i].Replies[j].body);
+                // console.log("Author Name: " + replyData[i].Author.name); - consoles to check that everything was working just fine
+                // console.log("Author Name2 : " + post.Author.name);
+                // console.log("Post ID 2 : " + post.id);
+                    console.log('==============================');
+
+          }
+            // console.log("POST ID: " + JSON.stringify(replyData[i].Replies[0].PostId));
+        }
+    }
+    // // ---------------//end of for loop getting all responses properly
+        // =======================================
+    console.log(post);
+    var formattedDate = new Date(post.createdAt);
+        formattedDate = moment(formattedDate).format("MMMM Do YYYY, h:mm:ss a");
+
+    var newPostCard = $("<div style='height:800px;border-radius: 10px;border:none;' >");
+        newPostCard.addClass("card");
+
+    var newPostCardHeading = $("<div >");
+        newPostCardHeading.addClass("card-header");
+
+    var deleteBtn = $("<button>");
+        deleteBtn.text("x");
+        deleteBtn.addClass("delete btn btn-danger");
+
+    var editBtn = $("<button>");
+        editBtn.text("Edit");
+        editBtn.addClass("edit btn btn-info offset newpost");
+
+    var newPostTitle = $("<h3 >");
+    var newPostDate = $("<div id='date'style='opacity: 0.3'>");
+
     // // --------------------------Respond Button -------------------------
     var replyBtn = $("<button style='position:absolute;'>");
-    replyBtn.text("Reply");
-    replyBtn.addClass("reply btn-info");
+        replyBtn.text("Reply");
+        replyBtn.addClass("btn reply btn-info offset newpost");
     // // --------------------------Respond Button -------------------------
-    newPostAuthor.text("Written by: " + post.Author.name);
-    newPostAuthor.css({
-      float: "right",
-      color: "blue",
-      "margin-top":
-      "-10px"
-    });
-    var newPostCardBody = $("<div>");
-    newPostCardBody.addClass("card-body");
-    var newPostBody = $("<p>");
+
+    var newPostCardBody = $("<div> ");
+        newPostCardBody.addClass("card-body");
+
+    var newPostBody = $("<h4>");
+    var replyBody = $("<div> <h5>Responses: </br>");
+        replyBody.addClass("replyBodyClass");
+    // ------------------------------------------
+    // for(var j = 0; j <replyData.length; j++){
+    //    //   if(posts[i].id === data[j].Replies[0].PostId){
+    //    //   console.log("Is this working: " + posts[i].id + ": " + data[j].Replies[0].body);
+    //    //
+    //    // }
+    //      replyBody.append("Response: " + replyData[j].Replies[0].body);
+    // // console.log("Data: " + JSON.stringify(data[i].Replies[0].body));
+    // // console.log("Data: " + JSON.stringify(data[j].Replies[0].PostId));
+    // //   console.log("Data: " + JSON.stringify(data[i].Replies[0]));
+    // }
+
+    for(var i = 0; i < arrayOfResponse.length; i++){
+       var test = "<div class='responseBox'>" + arrayOfResponse[i] + "</div>";
+      replyBody.append(test)
+
+    }
+    // replyBody.append(arrayOfResponse);
     newPostTitle.text(post.title + " ");
     newPostBody.text(post.body);
-    newPostDate.text(formattedDate);
+
     newPostTitle.append(newPostDate);
+    // -------
     newPostCardHeading.append(deleteBtn);
     newPostCardHeading.append(editBtn);
     newPostCardHeading.append(replyBtn);
     newPostCardHeading.append(newPostTitle);
-    newPostCardHeading.append(newPostAuthor);
+    newPostCardHeading.append("Written by: " + post.Author.name + "<br>" + formattedDate );
+    // ----------
     newPostCardBody.append(newPostBody);
+    // =-------
     newPostCard.append(newPostCardHeading);
     newPostCard.append(newPostCardBody);
-    newPostCard.data("post", post);
+    newPostCard.append(replyBody);
+    newPostCard.data("post", post );
+    newPostCard.data("author", post.AuthorId);
     return newPostCard;
   }
 
@@ -129,7 +223,14 @@ function handleReply() {
     .parent()
     .parent()
     .data("post");
-  window.location.href = "/reply-html?post_id=" + currentPost.id;
+
+    var currentAuthorId = $(this)
+      .parent()
+      .parent()
+      .data("author");
+      console.log(currentAuthorId);
+  window.location.href = "/reply-html?post_id=" + currentPost.id + "?author_id=" + currentAuthorId;
+  //Attach the data to the button
 }
 // -----------------reply----------------------------
   // This function figures out which post we want to edit and takes it to the appropriate url
@@ -155,5 +256,63 @@ function handleReply() {
     "'>here</a> in order to get started.");
     blogContainer.append(messageH2);
   }
+
+  // ========================================
+  $( "#search-form" ).submit(function( event ) {
+      event.preventDefault();
+      console.log("You searched for " + $("#search-query").val().trim())
+      $.getJSON('https://en.wikipedia.org/api/rest_v1/page/summary/' + $("#search-query").val().trim(), function(data) {       // wikipedia api to get a summary based on button already created or new buttons added
+               info = data.extract;
+               console.log(info);
+               $(".wiki-section").html(info); //where the summary is shown on the page
+      });
+
+
+
+
+
+
+    // =====================Reddit API==========================================
+
+    var queryURL = "https://api.reddit.com/search?q=" + $("#search-query").val().trim(); // set limit to 10
+
+    $.ajax({
+      url: queryURL,
+      method: "GET"
+    })
+      .then(function(response) {
+        $('.reddit_cards').empty();
+          var results = response.data;
+          console.log(results);                    //put response in a variable
+          if(($("#search-query").val().trim()) != ""){
+            $('.reddit_cards').empty();
+          for(var i =0; i < 25; i++){
+            var title=results.children[i].data.title;
+            var url=results.children[i].data.url;
+
+            var image=results.children[i].data.thumbnail;
+            if(image === "default" || image === "self"){
+            image = "assets/images/reddit-logo.svg"
+          }
+
+            var redditCard = $('<tr id=' + url + '><td><h6><a href="' + url + '"target="_blank">' + title + '</a></h6><p>' + " " + '</p></td><td class="d-flex justify-content-end"><img src=' + image +' style="height:90px; width:90px;"></td></tr>');
+            $('.wiki-section').append(redditCard);
+
+
+          }
+
+        } // if statement
+
+        else{
+          console.log("yes");
+        }
+
+            console.log(results.children[14].data.url);
+      });
+
+
+      // =====================Reddit API==========================================
+      });
+  // ========================================
 
 });
