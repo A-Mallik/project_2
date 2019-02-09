@@ -9,24 +9,51 @@
   <link rel="stylesheet" href="css/styles.css" media="screen" title="no title">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 
 <body>
 <div class="effects">
-<button type="button" class="btn btn-primary" ><a href="/">Home</a></button>
+  <div class="btns">
 
-  <div class="container blog">
+      <a class="btn btn-light offset newpost newHomeEdit" href="/cms-html">Home</a>
+
+
+      <a class="btn btn-light offset newpost newPostEdit" href="/cms-html">New Post</a>
+
+
+      <a class="btn btn-light offset manageauthors newManEdit" href="/author-manager-html">Manage Authors</a>
+
+  </div>
+
+  <div class="wikiRef">
+      <h5 class=" wiki-title">Quick Look-Up</h5>
+    <div class=" col-6" id="search">
+                    <form id="search-form" class="form-inline col-12">
+                            <input type="submit" style="display: none" />
+                            <input id="search-query" class="form-control w-100" type="search" autocomplete="off" placeholder="Search for a topic" aria-label="Search">
+                    </form>
+      </div>
+      <br />
+    <div class="card">
+
+              <div class=" wiki-section">
+
+                  <!-- <p class="card-text" id="wikiInfo">Once a search term is entered, a general summary of searched item will appear.</p> -->
+              </div>
+      </div>
+  </div>
+  <div class="blog">
+
     <div class="row">
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-light" href="/cms-html">New Post</a>
-      </div>
-      <div class="col-md-2 col-sm-2">
-        <a class="btn btn-light" href="/author-manager-html">Manage Authors</a>
-      </div>
+
     </div>
+
     <div class="row">
-      <div class="col-md-12 blog-container">
+
+      <div class="blog-container container2">
       </div>
+
     </div>
   </div>
   <!-- Custom Script -->

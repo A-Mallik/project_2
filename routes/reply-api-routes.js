@@ -14,16 +14,13 @@ module.exports = function(app) {
 
   // GET route for getting all of the posts
   app.get("/api/reply", function(req, res) {
-    var query = {};
-    if (req.query.author_id) {
-      query.AuthorId = req.query.author_id;
-    }
+
     // Here we add an "include" property to our options in our findAll query
     // We set the value to an array of the models we want to include in a left outer join
     // In this case, just db.Author
-    db.Reply.findAll({
-      where: query,
-      include: [db.Author]
+    db.Post.findAll({
+
+      include: [db.Author,db.Reply]
     }).then(function(dbPost) {
       res.json(dbPost);
     });
@@ -48,6 +45,7 @@ module.exports = function(app) {
   app.post("/api/reply", function(req, res) {
     db.Reply.create(req.body).then(function(dbPost) {
       res.json(dbPost);
+      console.log("See Post: " + dbPost);
     });
   });
 

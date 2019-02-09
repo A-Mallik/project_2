@@ -24,7 +24,12 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: {
         allowNull: false
       }
-    });
+    }),
+    Post.hasMany(models.Reply, {  //for multiple replies
+      foreignKey: {
+        allowNull: false
+      }
+    })
   };
 
   return Post;
