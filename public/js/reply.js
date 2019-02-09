@@ -1,14 +1,12 @@
 $(document).ready(function() {
-  // Getting jQuery references to the post body, title, form, and author select
   var bodyInput = $("#body");
   var cmsForm = $("#cms"); // refers to the similar CMS form back in reply.html
   var authorSelect = $("#author");
   $(cmsForm).on("submit", handleFormSubmit);
-  // Gets the part of the url that comes after the "?" (which we have if we're updating a post)
+
   var url = window.location.search;
   var postId;
   var authorId;
-  // Sets a flag for whether or not we're updating a post to be false initially
   var updating = false;
 
   // If we have this section in our url, we pull out the post id from the url
@@ -18,15 +16,12 @@ $(document).ready(function() {
     var splitUrl = url.split("=");
     postId = splitUrl[1].split("?")[0];
     authorId = splitUrl[2]
-
+    // Dariell (TA) helped us figure out and understand this portion to correctly get and retrieve the posts and responses related to the posts by author.
   }
 
   getAuthors();
-
-  // A function for handling what happens when the form to create a new post is submitted
   function handleFormSubmit(event) {
     event.preventDefault();
-    // Wont submit the post if we are missing a body, title, or author
     if (
       // !titleInput.val().trim()
      !bodyInput.val().trim()
@@ -52,12 +47,9 @@ $(document).ready(function() {
     });
   }
 
-  // A function to get Authors and then render our list of Authors
   function getAuthors() {
     $.get("/api/authors", renderAuthorList);
   }
-  // Function to either render a list of authors, or if there are none, direct the user to the page
-  // to create an author first
   function renderAuthorList(data) {
     if (!data.length) {
       window.location.href = "/author-manager-html";
