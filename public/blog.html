@@ -9,20 +9,43 @@
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-  <link rel="icon" href="projectLogo.png" type="image/gif" >
+  <link rel="icon" href="logo2.png" type="image/gif" >
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/" style="color:#18BC9C;"><img id="navLogo" src='logo2.png' /></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarText">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <!-- <a class="btn btn-light offset newpost newHomeEdit" href="/cms-html">Home</a> -->
+      </li>
+      <li class="nav-item">
+      <a class="btn btn-light offset newpost newPostEdit" href="/cms-html">New Post</a>
+      </li>
+      <li class="nav-item">
+          <a class="btn btn-light offset manageauthors newManEdit" href="/author-manager-html">Manage Authors</a>
+      </li>
+    </ul>
+    <span class="navbar-text">
+      Navbar text with an inline element
+    </span>
+  </div>
+</nav>
+
 <div class="effects">
   <div class="btns">
 
-      <a class="btn btn-light offset newpost newHomeEdit" href="/cms-html">Home</a>
 
 
-      <a class="btn btn-light offset newpost newPostEdit" href="/cms-html">New Post</a>
 
 
-      <a class="btn btn-light offset manageauthors newManEdit" href="/author-manager-html">Manage Authors</a>
+
+
+
 
   </div>
 
@@ -44,7 +67,7 @@
 
       </div>
   </div>
-  <div class="map-section" id="map">
+  <div class="map-section" id="map" >
 
       <!-- <p class="card-text" id="wikiInfo">Once a search term is entered, a general summary of searched item will appear.</p> -->
   </div>
@@ -56,7 +79,7 @@
 
     <div class="row">
 
-      <div class="blog-container container2">
+      <div class="blog-container ">
       </div>
 
     </div>
