@@ -1,7 +1,6 @@
 {
   "name": "post-author-joins",
   "version": "1.0.0",
-  "description": "",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,5 +14,15 @@
     "express": "^4.16.3",
     "mysql2": "^1.6.4",
     "sequelize": "^4.41.2"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/A-Mallik/temporary_project_2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/A-Mallik/temporary_project_2/issues"
+  },
+  "homepage": "https://github.com/A-Mallik/temporary_project_2#readme",
+  "description": ""
 }
