@@ -16,7 +16,7 @@ $(document).ready(function() {
     authorId = url.split("=")[1];
     getPosts(authorId);
   }
-  // If there's no authorId we just get all posts as usual
+  // If there's no authorId we just g et all posts as usual
   else {
     getPosts();
   }
@@ -42,7 +42,7 @@ $(document).ready(function() {
           for(var j = 0; j <replyData.length + 1; j++){
 
             // if((replyData[i].Replies[j])){
-              console.log("Post ID:  " + JSON.stringify(replyData[i].Replies[j]));
+              // console.log("Post ID:  " + JSON.stringify(replyData[i].Replies[j]));
               // console.log("Response Body: " + JSON.stringify(replyData[i].Replies[j].body));
                   console.log('==============================');
             // }
@@ -78,7 +78,7 @@ $(document).ready(function() {
 
     for (var i = 0; i < posts.length; i++) {
       postsToAdd.push(createNewRow(posts[i]),replyData);
-      console.log("Looking at posts: " + JSON.stringify(posts[i].id));
+      // console.log("Looking at posts: " + JSON.stringify(posts[i].id));
   }
       // });
     blogContainer.append(postsToAdd);
@@ -137,13 +137,14 @@ $(document).ready(function() {
 
     var editBtn = $("<button>");
         editBtn.text("Edit");
-        editBtn.addClass("edit btn btn-info offset newpost");
+        editBtn.addClass("edit btn btn-info offset buttonStyling");
 
     var newPostTitle = $("<h3 >");
     var newPostDate = $("<div id='date'style='opacity: 0.3'>");
 
     // // --------------------------Respond Button -------------------------
-    var replyBtn = $("<button style='position:absolute;'>");
+    // var replyBtn = $("<button style='position:absolute;'>");
+    var replyBtn = $("<button style=''>");
         replyBtn.text("Reply");
         replyBtn.addClass("btn reply btn-info offset newpost");
     // // --------------------------Respond Button -------------------------
@@ -234,7 +235,7 @@ function handleReply() {
   }
 
   // ========================================
-  function codeAddress() {
+  function showWiki() {
     $.getJSON('https://en.wikipedia.org/api/rest_v1/page/summary/' + "Community", function(data) {       // wikipedia api to get a summary based on button already created or new buttons added
              info = data.extract;
              console.log(info);
@@ -245,7 +246,7 @@ function handleReply() {
 
 
 
-        window.onload = codeAddress;
+        window.onload = showWiki;
   $( "#search-form" ).submit(function( event ) {
       event.preventDefault();
       console.log("You searched for " + $("#search-query").val().trim())
