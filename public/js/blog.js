@@ -108,7 +108,8 @@ $(document).ready(function() {
           // This is our main functionality for looping through the data of both posts and responses to make sure that we correctly grab the responses related to the post.
              if((replyData[i].Replies[j]) && (post.id == JSON.stringify(replyData[i].Replies[j].PostId)) && post.Author.name === replyData[i].Author.name){
                 console.log("Response Body: " + JSON.stringify(replyData[i].Replies[j].body));
-                arrayOfResponse.push(replyData[i].Replies[j].body);
+                arrayOfResponse.push(replyData[i].Replies[j].body + "<br><div style='font-size:10px;'>Reply by: " + replyData[i].Author.name);
+                // arrayOfResponse.push("<h6>Reply by: " + replyData[i].Author.name);
                 // console.log("Author Name: " + replyData[i].Author.name); - consoles to check that everything was working just fine
                 // console.log("Author Name2 : " + post.Author.name);
                 // console.log("Post ID 2 : " + post.id);
@@ -233,6 +234,18 @@ function handleReply() {
   }
 
   // ========================================
+  function codeAddress() {
+    $.getJSON('https://en.wikipedia.org/api/rest_v1/page/summary/' + "Community", function(data) {       // wikipedia api to get a summary based on button already created or new buttons added
+             info = data.extract;
+             console.log(info);
+             $(".wiki-section").html(info); //where the summary is shown on the page
+           });
+           // -----
+      }
+
+
+
+        window.onload = codeAddress;
   $( "#search-form" ).submit(function( event ) {
       event.preventDefault();
       console.log("You searched for " + $("#search-query").val().trim())
@@ -240,6 +253,8 @@ function handleReply() {
                info = data.extract;
                console.log(info);
                $(".wiki-section").html(info); //where the summary is shown on the page
+               // ------------
+
       });
 
 
@@ -288,6 +303,6 @@ function handleReply() {
 
       // =====================Reddit API==========================================
       });
-  // ========================================
+
 
 });
