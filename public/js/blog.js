@@ -55,6 +55,7 @@ $(document).ready(function() {
       }
       else {
         initializeRows(replyData);
+        console.log("testing posts here:" + posts)
       }
 
         });
@@ -78,10 +79,15 @@ $(document).ready(function() {
 
     for (var i = 0; i < posts.length; i++) {
       postsToAdd.push(createNewRow(posts[i]),replyData);
-      // console.log("Looking at posts: " + JSON.stringify(posts[i].id));
+       console.log("Looking at posts: " + JSON.stringify(posts[i]));
+       // console.log("Posts to add:" + postsToAdd);
   }
       // });
-    blogContainer.append(postsToAdd);
+      for (var i = 0; i < postsToAdd.length - 1; i++) {
+        blogContainer.append(postsToAdd[i]);
+    }
+
+    console.log("Posts to add:" + postsToAdd);
   }
   // -------------------------------------.
 
@@ -179,7 +185,9 @@ $(document).ready(function() {
     // =-------
     newPostCard.append(newPostCardHeading);
     newPostCard.append(newPostCardBody);
+    newPostCard.append("<br/>");
     newPostCard.append(replyBody);
+
     newPostCard.data("post", post );
     newPostCard.data("author", post.AuthorId);
     return newPostCard;

@@ -26,11 +26,12 @@ body{
 }
 
 .map-section{
-  top: 755px;
+  display:block;
+  top: 675px;
   border-radius: 10px;
-  position:absolute;
-  float:right;
-  left:20px;
+  position:relative;
+  float:left;
+  left:-500px;
   background-color:white;
   height:550px;
   width:28vw;
@@ -57,7 +58,7 @@ body{
 }
 
 .blog{
-  top:35px;
+  top:-515px;
   position:relative;
   left:-50px;
   width:65vw;;
@@ -122,7 +123,8 @@ button.edit {
 
 .card{
   height: 550px !important;
-  margin-bottom:5px;
+
+  margin-bottom:30px;
   margin-left: 10px;
   box-shadow: 0px 0px 57px -14px rgba(0,0,0,0.5);
 }
