@@ -9,7 +9,7 @@ body{
   border-radius: 10px;
   position:relative;
   float:left;
-  left:40px;
+  left:10%;
   background-color:white;
   height:550px;
   width:28vw;
@@ -19,7 +19,7 @@ body{
 
 
 .wiki-title,#search{
-  position: relative;
+  position:relative;
   top:10px;
   left:10px;
   /* //comment */
@@ -31,7 +31,7 @@ body{
   border-radius: 10px;
   position:relative;
   float:left;
-  left:-500px;
+  right:18%;
   background-color:white;
   height:550px;
   width:28vw;
