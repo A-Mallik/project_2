@@ -47,6 +47,13 @@ module.exports = (passport, user) => {
               firstname: req.body.firstname,
               lastname: req.body.lastname,
               username: req.body.username
+
+              
+              //  ==========Trying This======================
+              //  ==========Trying This======================
+
+
+
             };
 
             User.create(data).then((newUser, created) => {
