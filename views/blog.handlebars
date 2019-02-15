@@ -11,16 +11,28 @@
       <li class="nav-item">
       <a class="btn btn-light offset newpost newPostEdit" href="/cms-html">New Post</a>
       </li>
-      <li class="nav-item">
+      {{!-- <li class="nav-item">
           <a class="btn btn-light offset manageauthors newManEdit" href="/author-manager-html">Manage Authors</a>
-      </li>
+      </li> --}}
        <li class="nav-item">
           <a class="btn btn-light offset manageauthors newManEdit" href="/logout">Log Out</a>
       </li>
        <li class="nav-item">
-          <a class="btn btn-light offset manageauthors newManEdit" >{{test}}</a>
+         
       </li>
     </ul>
+      <div id="username"><div class="btn-group">
+  <button id="usernameProfile" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    
+  </button>
+  
+  <div class="dropdown-menu">
+    <a class="dropdown-item" href="/logout">Logout</a>
+   
+    {{!-- <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Separated link</a> --}}
+  </div>
+</div></div>
     <!-- <span class="navbar-text">
       Navbar text with an inline element
     </span> -->
@@ -124,6 +136,14 @@ function initMap(){
     infoWindow.open(map);
   }
   // ========================================
+    $.ajax({
+    url: "/api/users",
+    type: 'GET',
+    success: function(res) {
+       document.querySelector("#usernameProfile").append(res.username)
+        
+    }
+});
   </script>
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA4foHAqMptW5mPUBvmLbgnZ24i62SVUfU&callback=initMap">

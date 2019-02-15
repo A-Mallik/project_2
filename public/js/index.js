@@ -62,6 +62,7 @@ var refreshExamples = function() {
 // handleFormSubmit is called whenever we submit a new example
 // Save the new example to the db and refresh the list
 var handleFormSubmit = function(event) {
+  alert("testing");
   event.preventDefault();
 
   var example = {
@@ -97,3 +98,5 @@ var handleDeleteBtnClick = function() {
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $exampleList.on("click", ".delete", handleDeleteBtnClick);
+
+

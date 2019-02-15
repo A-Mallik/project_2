@@ -1,4 +1,13 @@
 $(document).ready(function() {
+  var AuthorNameHere;
+  $.ajax({
+    url: "/api/users",
+    type: 'GET',
+    success: function(res) {
+      AuthorNameHere = res.firstname + " " + res.lastname;
+      AuthorNameID = res.id;  
+   
+ 
   // Getting jQuery references to the post body, title, form, and author select
   var bodyInput = $("#body");
   var titleInput = $("#title");
@@ -28,7 +37,7 @@ $(document).ready(function() {
   function handleFormSubmit(event) {
     event.preventDefault();
     // Wont submit the post if we are missing a body, title, or author
-    if (!titleInput.val().trim() || !bodyInput.val().trim() || !authorSelect.val()) {
+    if (!titleInput.val().trim() || !bodyInput.val().trim() ) {
       return;
     }
     // Constructing a newPost object to hand to the database
@@ -39,7 +48,7 @@ $(document).ready(function() {
       body: bodyInput
         .val()
         .trim(),
-      AuthorId: authorSelect.val()
+      AuthorId: AuthorNameID
     };
 
     // If we're updating a post run updatePost to update a post
@@ -78,7 +87,7 @@ $(document).ready(function() {
         console.log(data.AuthorId || data.id);
         titleInput.val(data.title);
         bodyInput.val(data.body);
-        authorId = data.AuthorId || data.id;
+        authorId = AuthorNameID;
         updating = true;
       }
     });
@@ -104,8 +113,8 @@ $(document).ready(function() {
   }
   function createAuthorRow(author) {
     var listOption = $("<option>");
-    listOption.attr("value", author.id);
-    listOption.text(author.name);
+    listOption.attr("value", AuthorNameID);
+    listOption.text(AuthorNameHere);
     return listOption;
   }
  //update function - grabbed from template
@@ -119,4 +128,8 @@ $(document).ready(function() {
         window.location.href = "/blog-html";
       });
   }
+
+}
+});
+
 });

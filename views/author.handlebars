@@ -21,7 +21,8 @@
 							<tr id="form-row">
 								<form id="author-form">
 									<td colspan="4">
-										<input placeholder="Enter a name" id="author-name" type="text" />
+										<div id="author-name" style="visibility: hidden" type="text"></div>
+										{{!-- <div id="test" ></div> --}}
 									</td>
 									<td><button type="submit" class="btn btn-success">Join</button>
 									</td>
@@ -35,4 +36,19 @@
 	</div>
 
 		<script src="js/author.js" type="text/javascript"></script>
+		<script>
+			    var nameGottenFromApi;
+  $.ajax({
+    url: "/api/users",
+    type: 'GET',
+    success: function(res) {
+       nameGottenFromApi = res.firstname + " " + res.lastname;
+      console.log(nameGottenFromApi)
+			document.querySelector("#test").innerHTML = nameGottenFromApi;
+    }
+});
+document.querySelector("#test").innerHTML = nameGottenFromApi;
+console.log("my data: " + document.querySelector("#test").innerHTML)
+console.log(nameGottenFromApi)
+		</script>
 </div>

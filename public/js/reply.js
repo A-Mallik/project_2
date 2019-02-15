@@ -3,7 +3,17 @@ $(document).ready(function() {
   var cmsForm = $("#cms"); // refers to the similar CMS form back in reply.html
   var authorSelect = $("#author");
   $(cmsForm).on("submit", handleFormSubmit);
-
+  var newAuthId;
+  $.ajax({
+    url: "/api/users",
+    type: 'GET',
+    success: function(res) {
+       newAuthId = res.firstname + " " + res.lastname;
+        
+    }
+});
+  
+ 
   var url = window.location.search;
   var postId;
   var authorId;
@@ -25,7 +35,7 @@ $(document).ready(function() {
     if (
       // !titleInput.val().trim()
      !bodyInput.val().trim()
-    || !authorSelect.val()) {
+    ) {
       return;
     }
     // Constructing a newPost object to hand to the database
@@ -34,7 +44,9 @@ $(document).ready(function() {
         .val()
         .trim(),
       AuthorId: authorId,
-      PostId: postId
+      AuthorName: newAuthId,
+      PostId: postId,
+
     };
     console.log(newPost);
 
