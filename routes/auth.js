@@ -1,5 +1,6 @@
 var db = require("../models");
 
+
 module.exports = (app,passport) => {
 
   function isLoggedIn(req, res, next) {
@@ -22,22 +23,20 @@ module.exports = (app,passport) => {
         failureRedirect: "/signin"
       }));
 
-      app.get("/cms-html", (req, res) => {
+      
+
+      app.get("/cms-html",isLoggedIn, (req, res) => {
         res.render("cms");
       });
 
-      app.get("/author-manager-html", function(req, res) {
+      app.get("/author-manager-html",isLoggedIn, function(req, res) {
         res.render("author");
       });
 
-      app.get("/reply-html", function(req, res) {
+      app.get("/reply-html",isLoggedIn, function(req, res) {
         res.render("reply");
       });
-
-      // -----trying to pass handlebars snippet here , the {{test}} is in my blog.handlebars file--
-      app.get("/api/users/", function(req, res) {
-        res.render("/blog-html",test);
-      });
+      
     // -------------------------Passport Adds below------------------
 
   app.get("/home", isLoggedIn, (req, res) => {
@@ -77,6 +76,8 @@ module.exports = (app,passport) => {
       failureRedirect: "/signin"
     })
   );
+
+
 
 
 
@@ -136,8 +137,8 @@ module.exports = (app,passport) => {
   //   });
   // });
   app.get("/api/users/",isLoggedIn, function(req, res) {
-    console.log(req.user);
-    res.json(req.user.username);
+    console.log(req.user.firstname);
+    res.json(req.user);
 
   });
 

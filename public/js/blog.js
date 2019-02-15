@@ -1,5 +1,13 @@
 $(document).ready(function() {
-
+  var nameGottenFromApi;
+  $.ajax({
+    url: "/api/users",
+    type: 'GET',
+    success: function(res) {
+       nameGottenFromApi = res.firstname + " " + res.lastname;
+        
+    }
+});
 
   var blogContainer = $(".blog-container");
   var postCategorySelect = $("#category");
@@ -107,6 +115,7 @@ $(document).ready(function() {
     var arrayOfResponse = [];
     // =======================================
     // // for loop getting responses properly --------------------
+    // console.log("Almost there: " + JSON.stringify(replyData[0].Replies[0].AuthorName))
     for(var i = 0; i <replyData.length; i++){
     counter = replyData[i].Replies
         for(var j = 0; j <counter.length; j++){
@@ -114,7 +123,7 @@ $(document).ready(function() {
           // This is our main functionality for looping through the data of both posts and responses to make sure that we correctly grab the responses related to the post.
              if((replyData[i].Replies[j]) && (post.id == JSON.stringify(replyData[i].Replies[j].PostId)) && post.Author.name === replyData[i].Author.name){
                 console.log("Response Body: " + JSON.stringify(replyData[i].Replies[j].body));
-                arrayOfResponse.push(replyData[i].Replies[j].body + "<br><div style='font-size:10px;'>Reply by: " + replyData[i].Author.name);
+                arrayOfResponse.push(replyData[i].Replies[j].body + "<br><div style='font-size:12px;'>Reply by: " + replyData[i].Replies[j].AuthorName);
                 // arrayOfResponse.push("<h6>Reply by: " + replyData[i].Author.name);
                 // console.log("Author Name: " + replyData[i].Author.name); - consoles to check that everything was working just fine
                 // console.log("Author Name2 : " + post.Author.name);

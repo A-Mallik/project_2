@@ -1,5 +1,15 @@
 $(document).ready(function() {
-  var nameInput = $("#author-name");
+  var nameGottenFromApi;  
+  $.ajax({
+    url: "/api/users",
+    type: 'GET',
+    success: function(res) {
+       nameGottenFromApi = res.firstname + " " + res.lastname;
+       authorId = res.id;
+        
+
+  var nameInput = nameGottenFromApi;
+  console.log("my data2: " + nameInput)
   var authorList = $("tbody");
   var authorContainer = $(".author-container");
   $(document).on("submit", "#author-form", handleAuthorFormSubmit);
@@ -8,13 +18,12 @@ $(document).ready(function() {
   getAuthors();
   function handleAuthorFormSubmit(event) {
     event.preventDefault();
-    if (!nameInput.val().trim().trim()) {
-      return;
-    }
+    // if (!nameInput.val().trim().trim()) {
+    //   return;
+    // }
     upsertAuthor({
       name: nameInput
-        .val()
-        .trim()
+        
     });
   }
 
@@ -46,7 +55,7 @@ $(document).ready(function() {
         rowsToAdd.push(createAuthorRow(data[i]));
       }
       renderAuthorList(rowsToAdd);
-      nameInput.val("");
+      nameInput;
     });
   }
 
@@ -75,8 +84,11 @@ $(document).ready(function() {
     var id = listItemData.id;
     $.ajax({
       method: "DELETE",
-      url: "/api/authors/" + id
+      url: "/api/authors/" + authorId
     })
       .then(getAuthors);
   }
+
+}
+});
 });

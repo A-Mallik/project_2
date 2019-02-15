@@ -7,7 +7,9 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       len: [1]
       //text allows an almost unlimited size
-    }
+    },
+    AuthorName: DataTypes.STRING,
+    // AuthorFull: DataTypes.STRING,
   });
 
   Reply.associate = function(models) {
