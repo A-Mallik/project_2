@@ -25,6 +25,8 @@ Heroku with Jaws DB - an add-on for providing a fully functional MySQL Databas
 API Protected with environmental variables using the node global object `process.env`
 
 ## Deployment
+Email Log-In: demo@demo.com
+Password: 123
 
 The live demo of this project can be viewed at http://untanglev3-3.herokuapp.com/
 
