@@ -1,5 +1,5 @@
 # Untangled
-
+<img src="https://github.com/A-Mallik/project_2/blob/master/Untangle.png?raw=true" width="500" height="270" alt="NYScraper">
 Untangled - A web app that allows users to ask questions on various topics.  Our goal is to make a modern forum for users to connect with their local communities where they can share their problems and have others contribute together towards finding a viable solution. 
 
 ## Read Before Using
@@ -23,6 +23,8 @@ Passport.js - Used for authentication
 Heroku with Jaws DB - an add-on for providing a fully functional MySQL Database server for use with Heroku application.
 
 API Protected with environmental variables using the node global object `process.env`
+
+<img src="https://github.com/A-Mallik/project_2/blob/master/Untangleinside.png?raw=true" width="300" height="162" alt="NYScraper">
 
 ## Deployment
 Email Log-In: demo@demo.com
